@@ -7,7 +7,7 @@ export const makeRequest = async (text: string) => {
   }: {
     data: IData;
   } = await axios.post(
-    `http://localhost:5000/`,
+    `https://article-summarization-react.herokuapp.com/`,
     { data: text },
     {
       headers: {

@@ -60,6 +60,11 @@ app.post("/", async (req: Request, res: Response) => {
     });
   }
 });
+
+app.get("/", (req, res) => {
+  res.send("hello there");
+});
+
 app.listen(port, () => {
   console.log(`server ready on port ${port}`);
 });
