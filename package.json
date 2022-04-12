@@ -6,7 +6,10 @@
   "scripts": {
     "dev:server": "ts-node-dev --respawn --transpile-only ./server.ts",
     "dev:client": "npm run dev --prefix app",
-    "start": "concurrently \"npm run dev:server\" \"npm run dev:client\" "
+    "start-1": "concurrently \"npm run dev:server\" \"npm run dev:client\" ",
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "postinstall": "npm run build"
   },
   "keywords": [],
   "author": "",
