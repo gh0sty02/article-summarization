@@ -3,9 +3,10 @@ import { FC } from "react";
 import { IData } from "../utils/types";
 
 const Result: FC<{ data: IData }> = ({ data }) => {
-  const topics = data[0][0]["i"].map((e) => {
-    return e[0];
-  }) as string[];
+  // const topics = data[0][0]["i"].map((e) => {
+  //   return e[0];
+  // }) as string[];
+  const entities = data[1];
 
   return (
     <Flex direction="column" justify="space-between" p="4" height="100%">
@@ -34,17 +35,17 @@ const Result: FC<{ data: IData }> = ({ data }) => {
             </Button>
           )}
         </Box>
-        <Text color="white">{data[1]}</Text>
+        <Text color="white">{data[0]}</Text>
       </Box>
-      <Box alignSelf="flex-end">
+      <Box alignSelf="flex-start">
         <Box my="2" pt="4">
           <span>
             <Text as="span" color="white">
-              Topics :
+              Entites :
             </Text>
           </span>
           :
-          {topics.map((t) => (
+          {entities.map((t) => (
             <Badge rounded="sm" mx="2" key={t}>
               {t}
             </Badge>

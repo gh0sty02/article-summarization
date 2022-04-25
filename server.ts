@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { spawn } from "child_process";
+import { spawn, spawnSync } from "child_process";
 import cors from "cors";
 import path from "path";
 import { parse } from "node-html-parser";
@@ -22,32 +22,25 @@ app.use((req, res, next) => {
 
 app.use(cors());
 
-let filteredData: [{ i: string }[], string];
+let filteredData: [string, string[]];
 
 app.post("/", async (req: Request, res: Response) => {
   try {
     const { data }: { data: string } = req.body;
-
     const filePath = path.join("main.py");
-    // console.log(filePath);
     const pythonProcess = spawn("python", [filePath, data]);
 
     pythonProcess.stdout.on("data", function (data: Buffer) {
       const arrayData: [
-        { index: string },
+        { string: string },
         { topic: number; summary: string }[],
         { graph: string }
       ] = JSON.parse(data.toString());
-
-      const topics = Object.entries(arrayData[0]).map((e, i) => ({
-        i: JSON.parse(
-          e[1].replace(/'/g, '"').replace(/\(/g, "[").replace(/\)/g, "]")
-        ),
-      }));
-
+      const entitesArray = Object.keys(arrayData[0]);
+      const entites = [...new Set(entitesArray)];
       const summaries = arrayData[1][0].summary;
 
-      filteredData = [topics, summaries];
+      filteredData = [summaries, entites];
     });
 
     pythonProcess.on("close", (code) => {

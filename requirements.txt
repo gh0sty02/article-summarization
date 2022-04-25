@@ -10,3 +10,4 @@ scipy==1.7.3
 smart-open==5.2.1
 tqdm==4.62.3
 pyldavis==2.1.2
+spacy==2.2.4

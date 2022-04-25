@@ -7,7 +7,8 @@ export const makeRequest = async (text: string) => {
   }: {
     data: IData;
   } = await axios.post(
-    `https://article-summarization-react.herokuapp.com/`,
+    // `https://article-summarization-react.herokuapp.com/`,
+    "http://localhost:5000/",
     { data: text },
     {
       headers: {
@@ -15,6 +16,8 @@ export const makeRequest = async (text: string) => {
       },
     }
   );
+
+  console.log(data);
 
   return data;
 };

@@ -3,6 +3,7 @@ import nltk
 from gensim.models.ldamodel import LdaModel
 from preprocess import create_corpus, tokenizer, find_sentences
 import json
+import spacy
 
 #https://features.propublica.org/climate-migration/model-how-climate-refugees-move-across-continents/
 
@@ -125,3 +126,17 @@ def get_summaries(groups: dict, sentences: list):
     json_summaries = [{'topic': k, 'summary': v} for k, v in summaries.items()]
     json_summaries = json.dumps(json_summaries)
     return json_summaries
+
+def find_entities(summary):
+    nlp = spacy.load('en_core_web_sm')
+    doc = nlp(summary)
+    entities = []
+    for i in doc.ents:
+        if i.label_ in ['EVENT', 'FAC', 'GPE', 'LOC', 'NORP', 'ORG', 'PERSON', 'WORK_OF_ART']:
+            entities.append((i.text,i.label_))
+    entites_dict = {}
+    for i in entities:
+        entites_dict[i[0]] = i[1]
+
+    entities_json = json.dumps( entites_dict)  
+    return entities_json

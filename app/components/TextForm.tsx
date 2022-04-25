@@ -39,6 +39,7 @@ const TextForm: FC<{
     if (text) {
       await makeRequest(text).then((data) => {
         setData(data);
+
         setLoading(false);
       });
     }

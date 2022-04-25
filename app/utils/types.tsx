@@ -1,6 +1,7 @@
 export type IData = [
-  {
-    i: (string | number)[][];
-  }[],
+  // {
+  //   i: (string | number)[][];
+  // }[],
+  string,
   string[]
 ];

@@ -15,10 +15,11 @@ model = topic_model(corpus, dic, 3)
 distributions = get_sentence_distribution(model,dic,sentences)
 gtry = group_sentences(model,distributions,sentences)
 stry = get_summaries(gtry,sentences)
-topics = get_topic_keywords(model)
+# topics = get_topic_keywords(model)
+entities = find_entities(stry)
 
 
-data = "[{topics},{stry}]".format(topics = topics, stry = stry)
+data = "[{entities},{stry}]".format(entities = entities, stry = stry)
 print(data)
 
 with open('./app/public/lda.html', 'w') as file:
